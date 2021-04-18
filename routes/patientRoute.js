@@ -28,4 +28,6 @@ route.post("/:doctor_email", async(req, res) => {
         });
 });
 
+route.use("/patient", require("./patients_dataRoute"));
+
 module.exports = route;

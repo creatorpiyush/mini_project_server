@@ -29,6 +29,12 @@ route.get("/:doctor_email", (req, res) => {
     db.Doctors.findOne({ doctor_email: req.params.doctor_email })
         .populate({
             path: "doctor_s_patients",
+            populate: {
+                path: "patient_data",
+                populate: {
+                    path: "patient_temperature",
+                },
+            },
         })
         .then((user) => {
             res.json(user);

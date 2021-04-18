@@ -20,4 +20,6 @@ mongoose.connect(
 module.exports = {
     Doctors: require("./doctors"),
     Patients: require("./patients"),
+    PatientData: require("./patient_data"),
+    PatientTemperature: require("./patient_temperature"),
 };
