@@ -1,7 +1,12 @@
 const route = require("express").Router();
 
+const session = require("express-session");
+
 route.get("/", (req, res) => {
-    res.send(`Hi from Home`);
+  return res.render("index", {
+    signup_success: req.flash("signup_success"),
+    err: req.flash("err"),
+  });
 });
 
 module.exports = route;

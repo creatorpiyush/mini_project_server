@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="../css/custom/indexStyle.css">
+
+    <title>Doctor</title>
+
+</head>
+
+<body>
+
+    <nav class=" navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Mini Project</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/user/signup">Signup</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="clear"></div>
+
+
+    <div class="container-xl">
+
+        <div class="row">
+
+            {{!-- <div class="col-12 col-sm-6 align-self-center"> --}}
+                <div class="signup-form form-group">
+                    <form action="/doctor/login" method="post">
+                        <h2>Login in</h2>
+                        <p>Please fill to login to your account!</p>
+                        <div class="text-danger text-center font-weight-bold">{{err}}</div>
+                        <div class="text-success text-center font-weight-bold">{{signup_success}}</div>
+                        <hr>
+                        <div class="form-group">
+                            <input type="text" id="doctor_email_number" class="form-control"
+                                placeholder="Email or Username" name="doctor_email_number" required="required"
+                                autocapitalize="none" oninput="this.value=this.value.toLowerCase()">
+                        </div>
+                        {{!-- <div class="form-group">
+                            <input type="text" class="form-control" name="username" placeholder="Email"
+                                required="required">
+                        </div> --}}
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="doctor_password" placeholder="Password"
+                                required="required">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" onsubmit="myFunction()" class="btn btn-primary btn-lg">Login</button>
+                        </div>
+                    </form>
+                    <div class="hint-text">New User? <a href="/user/signup">Signup here</a></div>
+                </div>
+                {{!--
+            </div> --}}
+        </div>
+
+    </div>
+
+    <footer class="mt-auto">
+        <div class="text-center p-3 bg-light text-dark">
+            Developed with ❤️ by <a href="https://piyushanand.in" target="_blank" rel="noopener noreferrer"
+                class="text-decoration-none">Piyush
+                Anand</a>
+        </div>
+    </footer>
+
+
+    <script src="../js/jquery-3.5.1.slim.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
