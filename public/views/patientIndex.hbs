@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" href="../css/custom/indexStyle.css">
 
-    <title>Password-Manager | Index</title>
+    <title>Patient | Mini Project</title>
 
 </head>
 
@@ -39,34 +39,35 @@
 
         <div class="row">
 
-            <div class="col-12 col-sm-6 align-self-center">
+            {{!-- <div class="col-12 col-sm-6 align-self-center"> --}}
                 <div class="signup-form form-group">
-                    <form action="/user/login" method="post">
+                    <form action="/doctor/login" method="post">
                         <h2>Login in</h2>
                         <p>Please fill to login to your account!</p>
                         <div class="text-danger text-center font-weight-bold">{{err}}</div>
                         <div class="text-success text-center font-weight-bold">{{signup_success}}</div>
                         <hr>
                         <div class="form-group">
-                            <input type="text" id="email_username" class="form-control" placeholder="Email or Username"
-                                name="email_username" required="required" autocapitalize="none"
-                                oninput="this.value=this.value.toLowerCase()">
+                            <input type="text" id="doctor_email_number" class="form-control"
+                                placeholder="Email or Username" name="doctor_email_number" required="required"
+                                autocapitalize="none" oninput="this.value=this.value.toLowerCase()">
                         </div>
                         {{!-- <div class="form-group">
                             <input type="text" class="form-control" name="username" placeholder="Email"
                                 required="required">
                         </div> --}}
                         <div class="form-group">
-                            <input type="password" class="form-control" name="password" placeholder="Password"
+                            <input type="password" class="form-control" name="doctor_password" placeholder="Password"
                                 required="required">
                         </div>
                         <div class="form-group">
                             <button type="submit" onsubmit="myFunction()" class="btn btn-primary btn-lg">Login</button>
                         </div>
                     </form>
-                    <div class="hint-text">New User? <a href="/user/signup">Signup here</a></div>
+                    {{!-- <div class="hint-text">New User? <a href="/patient/signup">Signup here</a></div> --}}
                 </div>
-            </div>
+                {{!--
+            </div> --}}
         </div>
 
     </div>

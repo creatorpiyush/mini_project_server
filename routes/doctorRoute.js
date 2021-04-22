@@ -12,7 +12,14 @@ route.get("/", (req, res) => {
   });
 });
 
-route.post("/", (req, res) => {
+route.get("/signup", (req, res) => {
+  if (req.session.userId) {
+      return res.redirect(`/${req.session.username}`);
+  }
+  return res.render("doctorSignup", { err: req.flash("err") });
+});
+
+route.post("/signup", (req, res) => {
   const hashedPassword = bcrypt.hashSync(req.body.doctor_password, 13);
 
   const temp = new db.Doctors({
@@ -25,7 +32,7 @@ route.post("/", (req, res) => {
     if (err) {
       return res.send({ err: err });
     }
-    // return res.send(result);
+    return res.send(result);
   });
 });
 
@@ -82,7 +89,7 @@ route.get("/:doctor_email", (req, res) => {
     })
     .then((user) => {
       res.render("doctorData", { data: user.doctor_s_patients });
-      console.log(user);
+      // console.log(user);
     })
     .catch((err) => {
       res.json(err);

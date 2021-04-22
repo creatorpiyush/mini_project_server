@@ -18,12 +18,15 @@ route.post("/:doctor_email", async (req, res) => {
     patient_email: req.body.patient_email,
     patient_number: req.body.patient_number,
     patient_name: req.body.patient_name,
+    patients_doctor: req.params.doctor_email,
     patient_password: hashedPassword,
   })
     .then((patientcontent) => {
       return db.Doctors.findOneAndUpdate(
         { doctor_email: req.params.doctor_email },
-        { $push: { doctor_s_patients: patientcontent._id } }
+        {
+          $push: { doctor_s_patients: patientcontent._id },
+        }
       );
     })
     .then((user) => {
