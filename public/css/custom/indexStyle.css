@@ -127,10 +127,15 @@ body {
     animation: typewriter 4s steps(14) 1s 1 normal both, blinkTextCursor 500ms steps(14) infinite normal;
 }
 
+.button-link:hover {
+    text-decoration: none;
+}
+
 @keyframes typewriter {
     from {
         width: 0;
     }
+
     to {
         width: 9em;
     }
@@ -140,6 +145,7 @@ body {
     from {
         border-right-color: rgba(255, 255, 255, .75);
     }
+
     to {
         border-right-color: transparent;
     }

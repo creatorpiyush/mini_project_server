@@ -14,7 +14,7 @@ route.get("/", (req, res) => {
 
 route.get("/signup", (req, res) => {
   if (req.session.userId) {
-      return res.redirect(`/${req.session.username}`);
+    return res.redirect(`/${req.session.username}`);
   }
   return res.render("doctorSignup", { err: req.flash("err") });
 });
@@ -88,7 +88,7 @@ route.get("/:doctor_email", (req, res) => {
       },
     })
     .then((user) => {
-      res.render("doctorData", { data: user.doctor_s_patients });
+      res.render("doctorData", { data: user.doctor_s_patients, doctor: user });
       // console.log(user);
     })
     .catch((err) => {

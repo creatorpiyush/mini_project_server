@@ -1,0 +1,274 @@
+<html>
+
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="/css/custom/userStyle.css" />
+
+    <title>Patient Data | Mini Project</title>
+
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Mini Project</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="">Profile</a>
+          </li>
+        </ul>
+        <form
+          class="form-inline my-2 my-lg-0"
+          action="/user/logout?_method=DELETE"
+          method="post"
+        >
+          {{!-- <span class=" mr-sm-2">{{user_data.username}}</span> --}}
+          <input
+            class="btn btn-secondary btn-lg"
+            type="submit"
+            value="Logout"
+          />
+        </form>
+      </div>
+    </nav>
+
+    {{! Patient Data }}
+
+    <div class="container">
+
+      <div class="text-danger text-center font-weight-bold">{{err}}</div>
+
+      <div id="id01" class="modal">
+
+        <form
+          class="modal-content animate"
+          action="/patient/patient/{{doctor.patients_doctor}}"
+          method="POST"
+        >
+          <div class="container">
+
+            <label for="uname"><b>Patient Name</b></label>
+            <input
+              type="text"
+              placeholder="Enter Patient Name"
+              name="patient_name"
+              required
+            />
+
+            <label for="uname"><b>Patient Email</b></label>
+            <input
+              type="text"
+              placeholder="Enter Patient Email"
+              name="patient_email"
+              required
+            />
+
+            <label for="uname"><b>Patient Number</b></label>
+            <input
+              type="text"
+              placeholder="Enter Patient Number"
+              name="patient_number"
+              required
+            />
+
+            <label for="psw"><b>Patient Password</b></label>
+            <input
+              type="password"
+              placeholder="Set Patient Password"
+              name="patient_password"
+              required
+            />
+
+            <div class="text-center">
+              <button
+                class="btn btn-success btn-lg btn-block rounded-pill"
+                type="submit"
+              >Add</button>
+            </div>
+
+          </div>
+          <div class="container text-right" style="background-color:#f1f1f1">
+            <button
+              class="btn btn-danger rounded-pill"
+              type="button"
+              onclick="document.getElementById('id01').style.display='none'"
+              class="cancelbtn"
+            >Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    {{! Patient Relative }}
+    <div class="container">
+
+      <div class="text-danger text-center font-weight-bold">{{err}}</div>
+
+      <div id="id02" class="modal">
+
+        <form
+          class="modal-content animate"
+          action="/patient/patient/{{data.patient_email}}"
+          method="POST"
+        >
+          <div class="container">
+
+            <label for="uname"><b>Patient Name</b></label>
+            <input
+              type="text"
+              placeholder="Enter Patient Name"
+              name="patient_name"
+              required
+            />
+
+            <label for="uname"><b>Patient Email</b></label>
+            <input
+              type="text"
+              placeholder="Enter Patient Email"
+              name="patient_email"
+              required
+            />
+
+            <label for="uname"><b>Patient Number</b></label>
+            <input
+              type="text"
+              placeholder="Enter Patient Number"
+              name="patient_number"
+              required
+            />
+
+            <label for="psw"><b>Patient Password</b></label>
+            <input
+              type="password"
+              placeholder="Set Patient Password"
+              name="patient_password"
+              required
+            />
+
+            <div class="text-center">
+              <button
+                class="btn btn-success btn-lg btn-block rounded-pill"
+                type="submit"
+              >Add</button>
+            </div>
+
+          </div>
+          <div class="container text-right" style="background-color:#f1f1f1">
+            <button
+              class="btn btn-danger rounded-pill"
+              type="button"
+              onclick="document.getElementById('id02').style.display='none'"
+              class="cancelbtn"
+            >Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="card">
+        <h5 class="card-header">{{data.patient_name}}`s Data</h5>
+        <div class="card-body">
+          {{!-- {{#each data}} --}}
+          <article class="card">
+
+            <div class="card-content pt-1">
+              <div class="text-right">
+                <button
+                  class="btn btn-link rounded-pill"
+                  onclick="document.getElementById('id01').style.display='block'"
+                  style="width:auto;"
+                  class="align-center"
+                >Edit Patient</button>
+              </div>
+              <h5><b>Patient Name: </b> <b> {{data.patient_name}} </b></h5>
+              <h5><b>Patient Email: </b> <b> {{data.patient_email}} </b></h5>
+              <h5><b>Patient Number: </b> <b> {{data.patient_number}} </b></h5>
+
+              <p><b>Patient Problem:
+                </b>{{data.patient_data.patient_problem}}</p>
+              {{!-- <div>
+                            <span>Patient Recent Body Temperature: </span>
+                            {{#each this.patient_data.patient_temperature}}
+                            <span>{{this.temperature}}&#176;C</span>
+                            {{/each}}
+                        </div> --}}
+            </div>
+          </article>
+          {{!-- {{/each}} --}}
+
+          <article class="card">
+            <div class="card-content pt-0">
+              <div class="text-right">
+                <button
+                  class="btn btn-link rounded-pill"
+                  onclick="document.getElementById('id02').style.display='block'"
+                  style="width:auto;"
+                  class="align-center"
+                >Edit Patient Relatives</button>
+              </div>
+              <h5><b>Patient Relative Name: </b>
+                <b> {{data.patient_data.patient_relative_name}} </b></h5>
+              <h5><b>Patient Address: </b>
+                <b> {{data.patient_data.patient_address}} </b></h5>
+              <h5><b>Patient Relative No: </b>
+                <b> {{data.patient_data.patient_relative_number}} </b></h5>
+              {{!-- <div>
+                            <span>Patient Recent Body Temperature: </span>
+                            {{#each this.patient_data.patient_temperature}}
+                            <span>{{this.temperature}}&#176;C</span>
+                            {{/each}}
+                        </div> --}}
+            </div>
+          </article>
+        </div>
+      </div>
+
+    </div>
+
+    <footer class="mt-auto">
+      <div class="text-center p-3 bg-light text-dark">
+        Developed for Mini Project
+      </div>
+    </footer>
+
+    <script>
+      var modal = document.getElementById('id01'); window.onclick = function
+      (event) { if (event.target == modal) { modal.style.display = "none"; } }
+      var modal = document.getElementById('id02'); window.onclick = function
+      (event) { if (event.target == modal) { modal.style.display = "none"; } }
+    </script>
+
+    <script src="/js/jquery-3.5.1.slim.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+
+  </body>
+
+</html>

@@ -23,6 +23,10 @@ const patientSchema = new Schema({
     type: String,
     required: true,
   },
+  patients_gender: {
+    type: String,
+    required: true,
+  },
   patient_data: {
     type: Schema.Types.ObjectId,
     ref: "patient_data",

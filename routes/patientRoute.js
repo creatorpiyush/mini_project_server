@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 
 const db = require("../model");
 
+// * signup page of patient
 route.get("/", (req, res) => {
   return res.render("patientIndex", {
     signup_success: req.flash("signup_success"),
@@ -11,6 +12,43 @@ route.get("/", (req, res) => {
   });
 });
 
+// * patient login
+route.post("/login", (req, res) => {
+  db.Patients.findOne(
+    {
+      $or: [
+        { patient_email: req.body.patient_email_number },
+        { patient_number: req.body.patient_email_number },
+      ],
+    },
+    (err, result) => {
+      if (err) return res.send(err);
+      if (result) {
+        const isPasswordMatched = bcrypt.compareSync(
+          req.body.patient_password,
+          result.patient_password
+        );
+
+        if (isPasswordMatched) {
+          req.session.userId = result.id;
+          req.session.patient_name = result.patient_name;
+          req.session.patient_email = result.patient_email;
+
+          return res.redirect(`/patient/patient/${result.patient_email}`);
+        } else {
+          req.flash("err", "⚠️ Password does not matched... ⚠️");
+          return res.redirect("patientIndex");
+        }
+      } else {
+        // return res.send("err");
+        req.flash("err", "⚠️ Data not Found... ⚠️");
+        return res.redirect("patientIndex");
+      }
+    }
+  );
+});
+
+// * Adding patient from doctor
 route.post("/:doctor_email", async (req, res) => {
   const hashedPassword = bcrypt.hashSync(req.body.patient_password, 13);
 
@@ -19,6 +57,7 @@ route.post("/:doctor_email", async (req, res) => {
     patient_number: req.body.patient_number,
     patient_name: req.body.patient_name,
     patients_doctor: req.params.doctor_email,
+    patients_gender: req.body.patients_gender,
     patient_password: hashedPassword,
   })
     .then((patientcontent) => {
@@ -37,6 +76,7 @@ route.post("/:doctor_email", async (req, res) => {
     });
 });
 
+// * adding patient data using '/patient/patient/:{}'
 route.use("/patient", require("./patients_dataRoute"));
 
 module.exports = route;
