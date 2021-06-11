@@ -43,6 +43,21 @@ route.post("/:patient_email", async (req, res) => {
     });
 });
 
+route.post("/problem/:patient_email", async (req, res) => {
+  await db.PatientData.findOneAndUpdate(
+    { patient_email: req.params.patient_email },
+    {
+      patient_problem: req.body.patient_problem,
+    }
+  )
+    .then((user) => {
+      return res.redirect(`../${user.patient_email}`);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
 // * posting temperature by patient
 route.post("/temp/:patient_email", async (req, res) => {
   await db.PatientTemperature.create({

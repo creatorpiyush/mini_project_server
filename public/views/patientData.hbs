@@ -127,11 +127,8 @@
 
     {{! Patient Relative }}
     <div class="container">
-
       <div class="text-danger text-center font-weight-bold">{{err}}</div>
-
       <div id="id02" class="modal">
-
         <form
           class="modal-content animate"
           action="/patient/patient/{{data.patient_email}}"
@@ -191,10 +188,60 @@
       </div>
     </div>
 
+    {{!  }}
+
+    <div class="container">
+      <div class="text-danger text-center font-weight-bold">{{err}}</div>
+      <div id="id03" class="modal">
+        <form
+          class="modal-content animate"
+          action="/patient/patient/problem/{{data.patient_email}}"
+          method="POST"
+        >
+          <div class="container">
+
+            <label for="uname"><b>Patient Problem</b></label>
+            <input
+              type="text"
+              placeholder="Enter Patient Name"
+              value="{{data.patient_data.patient_problem}}"
+              name="patient_problem"
+              required
+            />
+
+            <div class="text-center">
+              <button
+                class="btn btn-success btn-lg btn-block rounded-pill"
+                type="submit"
+              >Add</button>
+            </div>
+
+          </div>
+          <div class="container text-right" style="background-color:#f1f1f1">
+            <button
+              class="btn btn-danger rounded-pill"
+              type="button"
+              onclick="document.getElementById('id03').style.display='none'"
+              class="cancelbtn"
+            >Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <div class="container">
       <div class="card">
         <h5 class="card-header">{{data.patient_name}}`s Data</h5>
         <div class="card-body">
+          <p><b>Patient Problem:
+            </b>{{data.patient_data.patient_problem}}
+            <button
+              class="btn btn-link rounded-pill"
+              onclick="document.getElementById('id03').style.display='block'"
+              style="width:auto;"
+              class="align-center"
+            >Edit Problem</button>
+          </p>
           {{!-- {{#each data}} --}}
           <article class="card">
 
@@ -211,8 +258,6 @@
               <h5><b>Patient Email: </b> <b> {{data.patient_email}} </b></h5>
               <h5><b>Patient Number: </b> <b> {{data.patient_number}} </b></h5>
 
-              <p><b>Patient Problem:
-                </b>{{data.patient_data.patient_problem}}</p>
               {{!-- <div>
                             <span>Patient Recent Body Temperature: </span>
                             {{#each this.patient_data.patient_temperature}}
@@ -262,6 +307,8 @@
       var modal = document.getElementById('id01'); window.onclick = function
       (event) { if (event.target == modal) { modal.style.display = "none"; } }
       var modal = document.getElementById('id02'); window.onclick = function
+      (event) { if (event.target == modal) { modal.style.display = "none"; } }
+      var modal = document.getElementById('id03'); window.onclick = function
       (event) { if (event.target == modal) { modal.style.display = "none"; } }
     </script>
 
