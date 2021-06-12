@@ -88,7 +88,8 @@ route.post("/:doctor_email", async (req, res) => {
       );
     })
     .then((user) => {
-      res.json(user);
+      // res.json(user);
+      return res.redirect(`/doctor/${req.params.doctor_email}`);
     })
     .catch((err) => {
       res.json(err);
