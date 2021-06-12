@@ -150,6 +150,44 @@
       </div>
     </div>
 
+    {{! image modal }}
+
+    <div class="container">
+      <div class="text-danger text-center font-weight-bold">{{err}}</div>
+      <div id="id02" class="modal">
+        <form class="modal-content animate">
+          <div class="container">
+
+            {{#each data}}
+              {{#each this.patient_data.patient_temperature}}
+                {{#if @last}}
+                  <h1>Image</h1>
+                  <img
+                    src="{{this.temperature_image}}"
+                    alt="{{this.temperature_image}}"
+                    srcset=""
+                  />
+                  {{!-- <span>{{this.temperature_image}}</span> --}}
+                  <h1>Time</h1>
+                  <span>{{this.temperature_time}}</span>
+                {{/if}}
+              {{/each}}
+
+            {{/each}}
+
+          </div>
+          <div class="container text-right" style="background-color:#f1f1f1">
+            <button
+              class="btn btn-danger rounded-pill"
+              type="button"
+              onclick="document.getElementById('id02').style.display='none'"
+              class="cancelbtn"
+            >Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <div class="container">
       <div class="card">
         <h5 class="card-header">Patients' Data</h5>
@@ -171,8 +209,18 @@
                 <div>
                   <span>Patient Recent Body Temperature: </span>
                   {{#each this.patient_data.patient_temperature}}
-                    <span>{{this.temperature}}&#176;C</span>
+                    {{#if @last}}
+                      <span>{{this.temperature}}&#176;C</span>
+                    {{/if}}
                   {{/each}}
+                  <div class="text-right d-inline-block">
+                    <button
+                      class="btn btn-link rounded-pill"
+                      onclick="document.getElementById('id02').style.display='block'"
+                      style="width:auto;"
+                      class="align-center"
+                    >Show Temperature Image</button>
+                  </div>
                 </div>
               </div>
               <div class="text-right pt-0">
@@ -200,6 +248,8 @@
     <script>
       var modal = document.getElementById('id01'); window.onclick = function
       (event) { if (event.target == modal) { modal.style.display = "none"; } }
+      var modal2 = document.getElementById('id02'); window.onclick = function
+      (event) { if (event.target == modal2) { modal2.style.display = "none"; } }
     </script>
 
     <script src="/js/jquery-3.5.1.slim.min.js"></script>

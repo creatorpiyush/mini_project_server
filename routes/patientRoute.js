@@ -34,18 +34,37 @@ route.post("/login", (req, res) => {
           req.session.patient_name = result.patient_name;
           req.session.patient_email = result.patient_email;
 
-          return res.redirect(`/patient/patient/${result.patient_email}`);
+          // return res.redirect(`/patient/patient/${result.patient_email}`);
+          return res.redirect(`/patient/p/${result.patient_email}`);
         } else {
           req.flash("err", "⚠️ Password does not matched... ⚠️");
-          return res.redirect("patientIndex");
+          return res.redirect("patientself");
         }
       } else {
         // return res.send("err");
         req.flash("err", "⚠️ Data not Found... ⚠️");
-        return res.redirect("patientIndex");
+        return res.redirect("patientself");
       }
     }
   );
+});
+
+// * getting patient data for himself
+route.get("/p/:patient_email", async (req, res) => {
+  db.Patients.findOne({ patient_email: req.params.patient_email })
+    .populate({
+      path: "patient_data",
+      populate: {
+        path: "patient_temperature",
+      },
+    })
+    .then((user) => {
+      res.render("patientself", { data: user });
+      // console.log(user);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 });
 
 // * Adding patient from doctor

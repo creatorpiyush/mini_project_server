@@ -2,6 +2,19 @@ const route = require("express").Router();
 
 const db = require("../model");
 
+const multer = require("multer");
+const fs = require("fs").promises;
+
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+  cloud_name: "creatorpiyush",
+  api_key: "897718564747982",
+  api_secret: "J8UTV3thq628g70AC3R-eXDG5sw",
+});
+
+const upload = multer({ dest: "src/uploads/" });
+
 // * getting patient data to show in doctor view
 route.get("/:patient_email", async (req, res) => {
   db.Patients.findOne({ patient_email: req.params.patient_email })
@@ -78,22 +91,33 @@ route.post("/update/:patient_email", async (req, res) => {
 });
 
 // * posting temperature by patient
-route.post("/temp/:patient_email", async (req, res) => {
-  await db.PatientTemperature.create({
-    temperature: req.body.temperature,
-  })
-    .then((PatientTemperature) => {
-      return db.PatientData.findOneAndUpdate(
-        { patient_email: req.params.patient_email },
-        { $push: { patient_temperature: PatientTemperature._id } }
-      );
-    })
-    .then((user) => {
-      res.json(user);
-    })
-    .catch((err) => {
-      res.json(err);
+route.post(
+  "/temp/:patient_email",
+  upload.single("temperature_image"),
+  async (req, res) => {
+    // console.log("req.file", req.file);
+    cloudinary.uploader.upload(req.file.path, async (err, result) => {
+      // console.log("result:", result);
+
+      await db.PatientTemperature.create({
+        temperature: req.body.temperature,
+        temperature_image: result.secure_url,
+      })
+        .then((PatientTemperature) => {
+          return db.PatientData.findOneAndUpdate(
+            { patient_email: req.params.patient_email },
+            { $push: { patient_temperature: PatientTemperature._id } }
+          );
+        })
+        .then((user) => {
+          // res.json(user);
+          return res.redirect(`/patient/p/${user.patient_email}`);
+        })
+        .catch((err) => {
+          res.json(err);
+        });
     });
-});
+  }
+);
 
 module.exports = route;

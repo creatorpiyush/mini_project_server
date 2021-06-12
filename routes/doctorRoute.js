@@ -89,7 +89,8 @@ route.get("/:doctor_email", (req, res) => {
     })
     .then((user) => {
       res.render("doctorData", { data: user.doctor_s_patients, doctor: user });
-      // console.log(user);
+      // let data = user.doctor_s_patients;
+      // console.log(data.patient_data);
     })
     .catch((err) => {
       res.json(err);
