@@ -43,6 +43,7 @@ route.post("/:patient_email", async (req, res) => {
     });
 });
 
+// * Updating Patient Problem
 route.post("/problem/:patient_email", async (req, res) => {
   await db.PatientData.findOneAndUpdate(
     { patient_email: req.params.patient_email },
@@ -52,6 +53,24 @@ route.post("/problem/:patient_email", async (req, res) => {
   )
     .then((user) => {
       return res.redirect(`../${user.patient_email}`);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
+// * updating patient relative Data
+route.post("/update/:patient_email", async (req, res) => {
+  await db.PatientData.findOneAndUpdate(
+    { patient_email: req.params.patient_email },
+    {
+      patient_relative_name: req.body.patient_relative_name,
+      patient_relative_number: req.body.patient_relative_number,
+      patient_address: req.body.patient_address,
+    }
+  )
+    .then((user) => {
+      return res.redirect(`/patient/patient/${user.patient_email}`);
     })
     .catch((err) => {
       res.json(err);

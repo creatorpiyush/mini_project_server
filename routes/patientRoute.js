@@ -76,6 +76,23 @@ route.post("/:doctor_email", async (req, res) => {
     });
 });
 
+// * Updating Patient data
+route.post("/update/:patient_email", async (req, res) => {
+  await db.Patients.findOneAndUpdate(
+    { patient_email: req.params.patient_email },
+    {
+      patient_name: req.body.patient_name,
+      patient_number: req.body.patient_number,
+    }
+  )
+    .then((user) => {
+      return res.redirect(`/patient/patient/${user.patient_email}`);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
 // * adding patient data using '/patient/patient/:{}'
 route.use("/patient", require("./patients_dataRoute"));
 

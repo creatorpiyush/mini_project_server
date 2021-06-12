@@ -68,7 +68,7 @@
 
         <form
           class="modal-content animate"
-          action="/patient/patient/{{doctor.patients_doctor}}"
+          action="/patient/update/{{data.patient_email}}"
           method="POST"
         >
           <div class="container">
@@ -78,14 +78,7 @@
               type="text"
               placeholder="Enter Patient Name"
               name="patient_name"
-              required
-            />
-
-            <label for="uname"><b>Patient Email</b></label>
-            <input
-              type="text"
-              placeholder="Enter Patient Email"
-              name="patient_email"
+              value="{{data.patient_name}}"
               required
             />
 
@@ -94,14 +87,7 @@
               type="text"
               placeholder="Enter Patient Number"
               name="patient_number"
-              required
-            />
-
-            <label for="psw"><b>Patient Password</b></label>
-            <input
-              type="password"
-              placeholder="Set Patient Password"
-              name="patient_password"
+              value="{{data.patient_number}}"
               required
             />
 
@@ -109,7 +95,7 @@
               <button
                 class="btn btn-success btn-lg btn-block rounded-pill"
                 type="submit"
-              >Add</button>
+              >Edit</button>
             </div>
 
           </div>
@@ -131,41 +117,33 @@
       <div id="id02" class="modal">
         <form
           class="modal-content animate"
-          action="/patient/patient/{{data.patient_email}}"
+          action="/patient/patient/update/{{data.patient_email}}"
           method="POST"
         >
           <div class="container">
 
-            <label for="uname"><b>Patient Name</b></label>
+            <label for="uname"><b>Patient Address</b></label>
             <input
               type="text"
-              placeholder="Enter Patient Name"
-              name="patient_name"
-              required
+              placeholder="Enter Patient Address"
+              name="patient_address"
+              value="{{data.patient_data.patient_address}}"
             />
 
-            <label for="uname"><b>Patient Email</b></label>
+            <label for="uname"><b>Patients Relative Name</b></label>
             <input
               type="text"
-              placeholder="Enter Patient Email"
-              name="patient_email"
-              required
+              placeholder="Enter Patient Relative Name"
+              name="patient_relative_name"
+              value="{{data.patient_data.patient_relative_name}}"
             />
 
-            <label for="uname"><b>Patient Number</b></label>
+            <label for="uname"><b>Patient Relative Number</b></label>
             <input
               type="text"
-              placeholder="Enter Patient Number"
-              name="patient_number"
-              required
-            />
-
-            <label for="psw"><b>Patient Password</b></label>
-            <input
-              type="password"
-              placeholder="Set Patient Password"
-              name="patient_password"
-              required
+              placeholder="Enter Patient Relative Number"
+              name="patient_relative_number"
+              value="{{data.patient_data.patient_relative_number}}"
             />
 
             <div class="text-center">
@@ -306,10 +284,10 @@
     <script>
       var modal = document.getElementById('id01'); window.onclick = function
       (event) { if (event.target == modal) { modal.style.display = "none"; } }
-      var modal = document.getElementById('id02'); window.onclick = function
-      (event) { if (event.target == modal) { modal.style.display = "none"; } }
-      var modal = document.getElementById('id03'); window.onclick = function
-      (event) { if (event.target == modal) { modal.style.display = "none"; } }
+      var modal2 = document.getElementById('id02'); window.onclick = function
+      (event) { if (event.target == modal2) { modal2.style.display = "none"; } }
+      var modal3 = document.getElementById('id03'); window.onclick = function
+      (event) { if (event.target == modal3) { modal3.style.display = "none"; } }
     </script>
 
     <script src="/js/jquery-3.5.1.slim.min.js"></script>
